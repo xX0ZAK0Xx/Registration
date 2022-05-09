@@ -10,7 +10,7 @@ void showMenu(){
 }
 
 void userRegister(){
-    string userName, password;
+    string userName, password, email;
     enterName:
     cout<<"Enter 0 to go back to the main menu or,\n";
     cout<<"Enter a username: ";
@@ -27,19 +27,20 @@ void userRegister(){
         goto enterName;//it will go for the re-enter of username
     }
     else{
+        cout<<"Enter email: ";
+        getline(cin,email);
         cout<<"Enter password: ";
         getline(cin,password);
         registered.open("e:\\cpp\\project\\login\\"+userName+".txt");
         //              here enter your own directory
-        registered <<userName<<endl<<password;
+        registered <<email<<endl<<password<<endl<<userName;
         registered.close();
         cout<<"Registration Successful.\n\n";
     }
-
 }
 
 void userLogin(){
-    string userName, password, fileName, filePass;
+    string userName, password, email, fileMail, filePass, fileName;
     loginAgain:
     cout<<"Enter 0 to go back to the main menu or,\n";
     cout<<"Enter username: ";
@@ -52,11 +53,44 @@ void userLogin(){
     loginFile.open(userName+".txt", ios_base::in);
     if(loginFile.is_open()){
         enterPass:
+        cout<<"Enter 1 to go back to the main menu or,\n";
+        cout<<"Enter 0 if you have forgotten password or,\n";
         cout<<"Enter password: ";
         getline(cin,password);
-        getline(loginFile,fileName);//gets the 1st line from the file
+        getline(loginFile,fileMail);//gets the 1st line from the file
         getline(loginFile,filePass);//gets the 2nd line from the file
-        if(filePass==password){
+        getline(loginFile,fileName);//gets the 3rd line from the file
+
+        if(password=="0"){
+            enterMailAgain:
+            cout<<"Press 0 to go to the previous menu or,\n";
+            cout<<"Enter your email: ";
+            getline(cin,email);
+            if(email=="0"){
+                goto enterPass;
+            }
+            else if(email==fileMail){
+                cout<<"Enter new password: ";
+                cin>>password;
+
+                loginFile.close();
+                ofstream loginFile;
+                loginFile.open(userName+".txt", ios_base::out);
+
+                loginFile <<email<<endl<<password<<endl<<userName;
+                loginFile.close();
+                cout<<"Password reset successfull.\n";
+            }
+            else{
+                cout<<"Email doesn't match.\n";
+                goto enterMailAgain;
+            }
+        }
+        else if(password=="1"){
+            return;
+        }
+
+        else if(filePass==password){
             cout<<"Login successful.\n\n";
             loginFile.close();
         }
