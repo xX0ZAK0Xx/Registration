@@ -20,7 +20,7 @@ void userRegister(){
     if(registered.is_open()){//returns true if a file with the same name exists in the directory
         cout<<"Username already exists.\n";
         registered.close();
-        goto enterName;
+        goto enterName;//it will go for the re-enter of username
     }
     else{
         cout<<"Enter password: ";
@@ -53,7 +53,7 @@ void userLogin(){
         }
         else{
             cout<<"Password wrong.\n";
-            goto enterPass;
+            goto enterPass;//it will go for the re-enter of password
         }
     }
     else{
