@@ -12,8 +12,12 @@ void showMenu(){
 void userRegister(){
     string userName, password;
     enterName:
+    cout<<"Enter 0 to go back to the main menu or,\n";
     cout<<"Enter a username: ";
     getline(cin,userName);
+    
+    if(userName=="0")
+        return;
 
     ofstream registered;
     registered.open(userName+".txt", ios_base::out | ios_base::in);//it will open a file but wont create or override 
@@ -36,8 +40,13 @@ void userRegister(){
 
 void userLogin(){
     string userName, password, fileName, filePass;
+    loginAgain:
+    cout<<"Enter 0 to go back to the main menu or,\n";
     cout<<"Enter username: ";
     getline(cin,userName);
+    
+    if(userName=="0")
+        return;
 
     ifstream loginFile;
     loginFile.open(userName+".txt", ios_base::in);
@@ -58,29 +67,30 @@ void userLogin(){
     }
     else{
         cout<<"Username doesn't exist.\n\n";
+        goto loginAgain;
     }
 }
 
 int main(){
 
-    int choice;
+    char choice;//to distinguish between char and int
     do{
         showMenu();
         cout<<"Enter your choice: ";
         cin>>choice;
         cin.ignore();//to ignore the enter button after user gives choice
         
-        if(choice==1){
+        if(choice=='1'){
             userRegister();
         }
-        else if(choice==2){
+        else if(choice=='2'){
             userLogin();
         }
-        else if(choice!=3){
+        else if(choice!='3'){
             cout<<"Enter a valid number.\n";
         }
 
-    }while(choice!=3);    
+    }while(choice!='3');    
 
     return 0;
 }
