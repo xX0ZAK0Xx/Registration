@@ -22,6 +22,7 @@ void userRegister(){
     ofstream registered;
     registered.open(userName+".txt", ios_base::out | ios_base::in);//it will open a file but wont create or override 
     if(registered.is_open()){//returns true if a file with the same name exists in the directory
+        system("cls");
         cout<<"Username already exists.\n";
         registered.close();
         goto enterName;//it will go for the re-enter of username
@@ -63,10 +64,12 @@ void userLogin(){
 
         if(password=="0"){
             enterMailAgain:
+            // system("cls");
             cout<<"Press 0 to go to the previous menu or,\n";
             cout<<"Enter your email: ";
             getline(cin,email);
             if(email=="0"){
+                system("cls");
                 goto enterPass;
             }
             else if(email==fileMail){
@@ -82,11 +85,13 @@ void userLogin(){
                 cout<<"Password reset successfull.\n";
             }
             else{
+                system("cls");
                 cout<<"Email doesn't match.\n";
                 goto enterMailAgain;
             }
         }
         else if(password=="1"){
+            system("cls");
             return;
         }
 
@@ -95,11 +100,13 @@ void userLogin(){
             loginFile.close();
         }
         else{
+            system("cls");
             cout<<"Password wrong.\n";
             goto enterPass;//it will go for the re-enter of password
         }
     }
     else{
+        system("cls");
         cout<<"Username doesn't exist.\n\n";
         goto loginAgain;
     }
@@ -113,7 +120,8 @@ int main(){
         cout<<"Enter your choice: ";
         cin>>choice;
         cin.ignore();//to ignore the enter button after user gives choice
-        
+        system("cls");
+
         if(choice=='1'){
             userRegister();
         }
